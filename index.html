@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>8,400 apocalypses</title>
+    <title>8,000 apocalypses</title>
     <style>
         body {
             display: flex;
@@ -24,17 +24,32 @@
 <h1></h1>
 <script>
     let h1 = document.querySelector('h1')
-    let firstPhrases =  ['fascist','synthetic','global','magnetic','abandoned','scientific','cold','alien','dark','nuclear','supernatural','biological','religious','cursed','mass','solar','sentient','genetically-modified','space','viral']
+    let firstPhrases =
+        ['fascist','synthetic','global','magnetic','abandoned','scientific','cold','alien','dark','nuclear','supernatural','biological','religious','cursed','mass','solar','sentient','genetically-modified','space','viral']
     let secondPhrases =
         ['famine','radioactive','bees','supervolcano','energy','insect','asteroid','economic','desert','bird','plague','electromagnetic','ice','AI','brain','climate','sea','CERN','blood','ecological']
     let thirdPhrases =
         ['armageddon','black hole','collapse','cult','death','disaster','eruption','experiment','explosion','extinction','flood','immunity','meltdown','monster','pandemic','rapture','storm','superwar','uprising','virus','war']
 
-    let newApocalypse = () => {
+    // i'm too lazy to do the maths myself each time i add more thingies
+    // but not too lazy to make this weird thousands separator doodad
+    // whatever.
+    let replaceTitle = () => {
         let howMany = firstPhrases.length * secondPhrases.length *
             thirdPhrases.length;
 
-        document.title =  `${howMany} apocalypses`;
+        howMany = `${howMany}`.split("").reverse();
+        for (let i = 0; i < howMany.length; i++) {
+            if (i % 3 === 0 && i !== 0) {
+                howMany[i] = `${howMany[i]},`;
+            }
+        }
+
+        document.title =  `${howMany.reverse().join("")} apocalypses`;
+    }
+
+    let newApocalypse = () => {
+        replaceTitle();
 
         let firstPhrase = firstPhrases[Math.floor(Math.random() * firstPhrases.length)]
         let secondPhrase = secondPhrases[Math.floor(Math.random() * secondPhrases.length)]
